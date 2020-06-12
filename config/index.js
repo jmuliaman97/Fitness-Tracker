@@ -1,15 +1,7 @@
-// let db = require("../models");
-
-// module.exports = require('mongoose').connect('mongodb://localhost/workout', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useFindAndModify: false
-// })
-
 let mongoose = require("mongoose");
 let db = require("../models");
 
-module.exports = mongoose.connect("mongodb://localhost/workout", {
+module.exports = mongoose.connect(process.env.MONGODB_URI || process.env.LOCAL_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false
