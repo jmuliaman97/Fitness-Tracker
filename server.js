@@ -8,6 +8,14 @@ app.use(express.json())
 
 app.use(require('./routes'))
 
+app.get('/exercise', (req, res) => {
+  res.sendFile(join(__dirname, './public/exercise.html'))
+})
+
+app.get('/stats', (req, res) => {
+  res.sendFile(join(__dirname, './public/stats.html'))
+})
+
 require('./config')
   .then(() => app.listen(3000))
   .catch(err => console.error(err))

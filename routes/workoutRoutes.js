@@ -4,13 +4,15 @@ const { Workout } = require('../models')
 // GET all workouts
 router.get('/workouts', (req, res) => {
   Workout.find()
+    .limit(1).sort({_id: -1})
     .then(workouts => res.json(workouts))
     .catch(err => console.error(err))
 })
 
-// GET one workout
-router.get('/workouts/:id', (req, res) => {
-  Workout.findById(req.params.id)
+// GET workout by range
+router.get('/workouts/range', (req, res) => {
+  console.log('hello')
+  Workout.find()
     .then(workout => res.json(workout))
     .catch(err => console.error(err))
 })
@@ -21,18 +23,11 @@ router.post('/workouts', (req, res) => {
     .then(workout => res.json(workout))
     .catch(err => console.error(err))
 })
-
-// PUT one workout
+  
+// UPDATE workout
 router.put('/workouts/:id', (req, res) => {
-  Workout.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => res.sendStatus(200))
-    .catch(err => console.error(err))
-})
-
-// DELETE one workout
-router.delete('/workouts/:id', (req, res) => {
-  Workout.findByIdAndDelete(req.params.id)
-    .then(() => res.sendStatus(200))
+  Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } })
+    .then((workout) => res.json(workout))
     .catch(err => console.error(err))
 })
 
